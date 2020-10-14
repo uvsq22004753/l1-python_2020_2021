@@ -16,3 +16,14 @@ def secondeEnTemps(seconde):
     return (vrais_jours, vraies_heures, vraies_minutes, vraies_secondes)
 
 
+def afficheTemps(temps):
+    """ renvoie en chaîne de caractères un affichage du temps avec les jours, \
+        les heures, les minutes et les secondes """
+    valeurs = ["jour", "heure", "minute", "seconde"]
+    affichage = " "
+    for i, j in zip(temps, valeurs):
+        if i == 1:
+            affichage = affichage + str(i) + " " + j + " "
+        elif i > 1:
+            affichage = affichage + str(i) + " " + j + 's' + " "
+    return affichage
