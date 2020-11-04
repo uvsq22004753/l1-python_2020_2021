@@ -21,6 +21,9 @@ def secondeEnTemps(seconde):
     return (vraies_jours, vraies_heures, vraies_minutes, vraies_secondes)
 
 
+print(secondeEnTemps(1000000000))
+
+
 def afficheTemps(temps):
     """" renvoie le tuple sous la forme d'une chaîne de caractère"""
     valeurs = ["jour", "heure", "minute", "seconde"]
