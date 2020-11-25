@@ -7,6 +7,10 @@ for i in range(0, len(carre_pas_mag)):
         carre_pas_mag[i][carre_pas_mag[i].index(3)] = 7
 print(carre_pas_mag)
 
+import numpy as np
+def afficheCarre(carre):
+    """la fonction permet d'afficher les listes deux dimensions sous forme de carrés"""
+    return np.array(carre)
 
 def testLignesEgales(carre):
     """ Renvoie la somme des éléments d'une ligne de la liste 2D carre si \
