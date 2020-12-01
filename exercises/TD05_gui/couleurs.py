@@ -10,7 +10,9 @@ def get_color(r, g, b):
 
 def ecran_aleatoire():
     couleurs = ["blue", "green", "black", "yellow", "magenta", "red"]
-    draw_pixel(rd.randint(0,255), rd.randint(0,255), couleurs[rd.randint(0,5)])
+    for i in range(256):
+        for j in range(256):
+            draw_pixel(i, j, couleurs[0])
 
 
 label1 = tk.Button(couleur, text = "Aléatoire", font=("helvetica","16"), fg = "green", bg = "white",padx = 17, command = ecran_aleatoire)
@@ -24,6 +26,6 @@ label3.grid(column = 0, row = 9, rowspan = 4)
 label4.grid(column = 1, row = 1, columnspan = 12, rowspan = 12)
 
 def draw_pixel(i, j, color):
-    return label4.create_rectangle(i,j,i+1,j+1, fill = color)
+    return label4.create_rectangle(i,j,i+12,j+12, fill = color)
 
 couleur.mainloop()
