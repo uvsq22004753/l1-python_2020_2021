@@ -103,8 +103,9 @@ def charger():
     parcelle.append([LARGEUR,HAUTEUR])
     for i in list_chargement :
         if i != list_chargement[0] : 
-            terrain.create_rectangle((int(i[4])*LARGEUR_PARCELLE, int(i[3])*LARGEUR_PARCELLE),
-                ((int(i[4])+1)*LARGEUR_PARCELLE, (int(i[3])+1)*LARGEUR_PARCELLE), fill=i[1])
+            id = terrain.create_rectangle((int(i[3])*LARGEUR_PARCELLE, int(i[4])*LARGEUR_PARCELLE),
+                ((int(i[3])+1)*LARGEUR_PARCELLE, (int(i[4])+1)*LARGEUR_PARCELLE), fill=i[1])
+            parcelle.append([id,i[1],int(i[2]),(int(i[3]),(int(i[4])]))
 
 ###############################################
 
