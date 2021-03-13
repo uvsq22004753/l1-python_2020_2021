@@ -36,7 +36,7 @@ parcelle = []
 ######FONCTIONS################################
 def creer_terrain():
     global LARGEUR, HAUTEUR, parcelle
-    parcelle.append([LARGEUR,HAUTEUR])
+    parcelle.append([LARGEUR, HAUTEUR])
     duree = 0
     NBR_PARCELLES = ((LARGEUR*HAUTEUR)//(LARGEUR_PARCELLE**2))
     NBR_PRAIRIE = int(PCT_PRAIRIE*NBR_PARCELLES/100)
@@ -89,7 +89,22 @@ def sauvegarder():
     Fichier.close()
 
 def charger():
-    print(parcelle)
+    global HAUTEUR, LARGEUR, parcelle
+    nom_fichier = svEntry.get() + '.txt'
+    chargement = open(nom_fichier, "r")
+    list_chargement = [(line.strip()).split() for line in chargement]
+    chargement.close()
+    terrain.config(height=int(list_chargement[0][0]), width=int(list_chargement[0][1]))
+    HAUTEUR = int(list_chargement[0][1])
+    LARGEUR = int(list_chargement[0][0])
+    label_taille_hauteur['text']=HAUTEUR
+    label_taille_largeur['text']=LARGEUR
+    label_nbr_parcelles['text'] = str((LARGEUR*HAUTEUR)//(LARGEUR_PARCELLE**2))
+    parcelle.append([LARGEUR,HAUTEUR])
+    for i in list_chargement :
+        if i != list_chargement[0] : 
+            terrain.create_rectangle((int(i[4])*LARGEUR_PARCELLE, int(i[3])*LARGEUR_PARCELLE),
+                ((int(i[4])+1)*LARGEUR_PARCELLE, (int(i[3])+1)*LARGEUR_PARCELLE), fill=i[1])
 
 ###############################################
 
