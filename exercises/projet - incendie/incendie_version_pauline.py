@@ -90,6 +90,7 @@ def sauvegarder():
 
 def charger():
     global HAUTEUR, LARGEUR, parcelle
+    color = ''
     nom_fichier = svEntry.get() + '.txt'
     chargement = open(nom_fichier, "r")
     list_chargement = [(line.strip()).split() for line in chargement]
@@ -103,9 +104,9 @@ def charger():
     parcelle.append([LARGEUR,HAUTEUR])
     for i in list_chargement :
         if i != list_chargement[0] : 
-            id = terrain.create_rectangle((int(i[3])*LARGEUR_PARCELLE, int(i[4])*LARGEUR_PARCELLE),
-                ((int(i[3])+1)*LARGEUR_PARCELLE, (int(i[4])+1)*LARGEUR_PARCELLE), fill=i[1])
-            parcelle.append([id,i[1],int(i[2]),(int(i[3]),(int(i[4])]))
+            id = terrain.create_rectangle(int(i[3])*LARGEUR_PARCELLE, int(i[4])*LARGEUR_PARCELLE,
+                (int(i[3])+1)*LARGEUR_PARCELLE, (int(i[4])+1)*LARGEUR_PARCELLE, fill=i[1])
+            parcelle.append([id,i[1],int(i[2]),int(i[3]),int(i[4])])
 
 ###############################################
 
@@ -131,6 +132,7 @@ label_PCT_eau = tk.Label(simulation, text=str(PCT_EAU), bg="DeepSkyBlue2", width
 bouton_sauvegarder = tk.Button(simulation, text="sauvegarder le terrain", bg="NavajoWhite2", command=sauvegarder, width=30)
 bouton_charger = tk.Button(simulation, text="charger un terrain", bg="NavajoWhite2", command=charger, width=30)
 edit = tk.Entry(simulation, textvariable = svEntry, width=30)
+
 
 terrain.grid(column=1, row=2, columnspan=6, rowspan=24)
 bouton_creer_terrain.grid(row=2, column=0)
