@@ -200,8 +200,8 @@ def creation() :
 
 
 ratioHauteur = 0.8
-largeurCanvas = 700
-hauteurCanvas = 700
+largeurCanvas = 400
+hauteurCanvas = 400
 nbParcellesLargeur = 50
 nbParcellesHauteur = 50
 largeurParcelle = min(largeurCanvas/nbParcellesLargeur,hauteurCanvas/nbParcellesHauteur)

@@ -19,8 +19,8 @@ import random as rd
 
 ######CONSTANTES################################
 ratioHauteur = 0.8
-largeurCanvas = 400
-hauteurCanvas = 400
+largeurCanvas = 500
+hauteurCanvas = 500
 nbParcellesLargeur = 50
 nbParcellesHauteur = 50
 largeurParcelle = min(largeurCanvas/nbParcellesLargeur,hauteurCanvas/nbParcellesHauteur)
@@ -55,14 +55,14 @@ cases = []
 
 ######FONCTIONS################################
 def creation() : 
-    global nbCasesPrairie, nbCasesForet, nbCasesEau, cases, casesNoires, casesModif
+    global cases, nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE, nbParcellesFeu, casesNoires, casesModif
     cases[:] = []
     casesNoires[:] = []
     casesModif[:] = []
     for n in range(0,nbParcellesLargeur*nbParcellesHauteur):
         i = n // nbParcellesLargeur
         j = n % nbParcellesLargeur
-        couleur = random.choices(couleurs,[poidsForet,poidsPrairie,poidsEau])[0]
+        couleur = rd.choices(couleurs,[poidsForet,poidsPrairie,poidsEau])[0]
         listeCouleurs.append(couleur)
         duree = 0
         id = c.create_rectangle(j*largeurParcelle+decalageX,i*hauteurParcelle+decalageY,j*largeurParcelle+largeurParcelle+decalageX,i*hauteurParcelle+hauteurParcelle+decalageY,fill=couleur,width=0)
@@ -71,9 +71,8 @@ def creation() :
     nbCasesPrairie = listeCouleurs.count("yellow")
     nbCasesForet = listeCouleurs.count("green")
     nbCasesEau = listeCouleurs.count("blue")
-    labelPrairie.config(text="Prairie: "+str('{: >6}'.format(nbCasesPrairie)))
-    labelForet.config(text="Forêt: "+str('{: >6}'.format(nbCasesForet)))
-    labelEau.config(text="Eau: "+str('{: >6}'.format(nbCasesEau)))
+    nbCasesCH, nbCasesCE, nbParcellesFeu = 0, 0, 0
+    majLabels()
 
 
 def afficheCarre(carre):
@@ -133,7 +132,7 @@ def simuler():
                     if cases[x][1] == "yellow":
                         nouvellesCasesFeu.append(x)
                     if cases[x][1] == "green":
-                        if random.random() < 0.1:
+                        if rd.random() < 0.1:
                             nouvellesCasesFeu.append(x)
 
         if cases[i][2] <= 0:
@@ -201,8 +200,8 @@ def baisserVitesse():
 
 
 def sauvegarder():
-    global cases, nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE
-    cases.append([nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE])
+    global cases, nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE, nbParcellesFeu, casesNoires, casesModif, nouvellesCasesFeu
+    cases.extend([[nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE, nbParcellesFeu], casesNoires, casesModif, nouvellesCasesFeu])
     nom_fichier = svEntry.get() + '.txt'
     Fichier = open(nom_fichier, 'w')
     for i in cases : 
@@ -212,27 +211,29 @@ def sauvegarder():
 
 
 def charger():
-    global cases, nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE, casesNoires, casesModif
+    global cases, nbCasesPrairie, nbCasesForet, nbCasesEau, nbCasesCH, nbCasesCE, nbParcellesFeu, casesNoires, casesModif, nouvellesCasesFeu
     cases[:] = []
     casesNoires[:] = []
     casesModif[:] = []
+    nouvellesCasesFeu[:] = []
     nom_fichier = svEntry.get() + '.txt'
     chargement = open(nom_fichier, "r")
     list_chargement = [(line.strip()).split() for line in chargement]
     chargement.close()
     for i in list_chargement :
         if i == list_chargement[len(list_chargement)-4] :
-            nbCasesPrairie = int(list_chargement[len(list_chargement)-1][0])
-            nbCasesForet = int(list_chargement[len(list_chargement)-1][1])
-            nbCasesEau = int(list_chargement[len(list_chargement)-1][2])
-            nbCasesCH = int(list_chargement[len(list_chargement)-1][3])
-            nbCasesCE = int(list_chargement[len(list_chargement)-1][4])
+            nbCasesPrairie = int(list_chargement[len(list_chargement)-4][0])
+            nbCasesForet = int(list_chargement[len(list_chargement)-4][1])
+            nbCasesEau = int(list_chargement[len(list_chargement)-4][2])
+            nbParcellesFeu = int(list_chargement[len(list_chargement)-4][5])
+            nbCasesCH = int(list_chargement[len(list_chargement)-4][3])
+            nbCasesCE = int(list_chargement[len(list_chargement)-4][4])
             majLabels()
-        elif i == list_chargement[len(list_chargement)-1] : 
-            casesModif = [int(elem) for elem in i]
-        elif i == list_chargement[len(list_chargement)-2] :
-            casesNoires = [int(elem) for elem in i]
+        elif i == list_chargement[len(list_chargement)-2] : 
+            casesModif = [int(elem) for elem in i ]
         elif i == list_chargement[len(list_chargement)-3] :
+            casesNoires = [int(elem) for elem in i]
+        elif i == list_chargement[len(list_chargement)-1] :
             nouvellesCasesFeu = [int(elem) for elem in i]
         else : 
             id = c.create_rectangle(int(i[4])*largeurParcelle+decalageX, int(i[3])*hauteurParcelle+decalageY,
@@ -258,7 +259,7 @@ labelCendresChaudes = Label(fen,text="Cendres chaudes: "+str('{: >6}'.format(nbC
 labelCendresEteintes = Label(fen,text="Cendres éteintes: "+str('{: >6}'.format(nbCasesCE)),bg="black",fg="white",font=fonte)
 labelVitesseSim = Label(fen,text=format("Etapes / seconde: "+str(vitesseSimulation)),font=fonte)
 bouton_sauvegarder = Button(simulation, text="sauvegarder le terrain", command=sauvegarder,bg="purple",fg="white",font=fonte)
-bouton_charger = Button(simulation, text="charger un terrain", bg="purple",fg="white",font=fonte)
+bouton_charger = Button(simulation, text="charger un terrain", bg="purple",fg="white",font=fonte, command=charger)
 bouton_terrain = Button(fen, text="créer terrain", bg="purple",fg="white",font=fonte, command=creation)
 edit = Entry(simulation, textvariable = svEntry, width=30)
 
