@@ -59,6 +59,8 @@ def creation() :
     cases[:] = []
     casesNoires[:] = []
     casesModif[:] = []
+    listeCouleurs.clear()
+    nbCasesPrairie, nbCasesForet, nbCasesEau = 0, 0, 0
     for n in range(0,nbParcellesLargeur*nbParcellesHauteur):
         i = n // nbParcellesLargeur
         j = n % nbParcellesLargeur
