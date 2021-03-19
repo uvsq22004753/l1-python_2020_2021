@@ -38,15 +38,15 @@ def division(event):
     zone_3 = canevas.create_rectangle(x, 0, 600, y, fill='white')
     zone_4 = canevas.create_rectangle(x,y, 600, 400, fill='red')
     zone = [zone_1, zone_2, zone_3, zone_4]
-    for i in zone :
+    for i in zone:
         a, b, c, d = canevas.coords(i)
-        if a == 0 or c==600 : 
-            balle = creer_balle(a+(c-a), b+(d-b))
-            canevas.itemconfigure(balle, fill='white')
-            balles.append(balle)
-        else : 
-            balle = creer_balle(a+(c-a), b+(d-b))
-            balles.append(balle)
+        if (b==0 and a==0) or (c==600 and d==400): 
+            balle_liste = creer_balle(a+(c-a), b+(d-b))
+            canevas.itemconfigure(balle_liste[0], fill='white')
+            balles.append(balle_liste)
+        else: 
+            balle_liste = creer_balle(a+(c-a), b+(d-b))
+            balles.append(balle_liste)
             
 
 canevas = tk.Canvas(graphique, heigh=400, width=600, bg='black')
