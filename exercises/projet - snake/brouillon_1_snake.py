@@ -1,0 +1,43 @@
+import tkinter as tk
+
+snake = tk.Tk()
+snake.title('jeu snake')
+
+#########VARIABLES#############
+
+WIDTH = 1600
+HEIGH = 720
+
+#########images##################
+
+parois = tk.PhotoImage(file='contour.gif')
+pomme = tk.PhotoImage(file='pomme3.gif')
+
+############fonctions#############
+
+def decors():
+    x, y = 0, 0
+    niveau = open('niveau_1.txt')
+    for ligne in niveau:
+        for i in range(40):
+            case = ligne[i]
+            if case == "X":
+                tk.Fond.create_image(x, y, image=parois, anchor="nw")
+            elif case == "P":
+                tk.Fond.create_image(x, y, image=pomme, anchor="nw")
+            x += 40
+        x = 0
+        y += 40
+    niveau.close()
+
+######code#######################
+
+
+snake.geometry('1600x720')
+
+env_jeu = tk.Canvas(snake, width=WIDTH, heigh=HEIGH, bg="green")
+env_jeu.place(x=0, y=0)
+
+decors()
+
+snake.mainloop()
