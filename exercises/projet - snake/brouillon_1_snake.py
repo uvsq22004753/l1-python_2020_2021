@@ -5,8 +5,8 @@ snake.title('jeu snake')
 
 #########VARIABLES#############
 
-WIDTH = 1600
-HEIGH = 720
+WIDTH = 800
+HEIGH = 600
 
 #########images##################
 
@@ -19,7 +19,7 @@ def decors():
     x, y = 0, 0
     niveau = open('niveau_1.txt')
     for ligne in niveau:
-        for i in range(40):
+        for i in range(20):
             case = ligne[i]
             if case == "X":
                 env_jeu.create_image(x, y, image=parois, anchor="nw")
@@ -33,7 +33,7 @@ def decors():
 ######code#######################
 
 
-snake.geometry('1600x720')
+snake.geometry('800x600')
 
 env_jeu = tk.Canvas(snake, width=WIDTH, heigh=HEIGH, bg="green")
 env_jeu.place(x=0, y=0)
