@@ -11,7 +11,7 @@ HEIGH = 720
 #########images##################
 
 parois = tk.PhotoImage(file='contour.gif')
-pomme = tk.PhotoImage(file='pomme3.gif')
+pomme = tk.PhotoImage(file='pomme4.gif')
 
 ############fonctions#############
 
@@ -22,9 +22,9 @@ def decors():
         for i in range(40):
             case = ligne[i]
             if case == "X":
-                tk.Fond.create_image(x, y, image=parois, anchor="nw")
+                env_jeu.create_image(x, y, image=parois, anchor="nw")
             elif case == "P":
-                tk.Fond.create_image(x, y, image=pomme, anchor="nw")
+                env_jeu.create_image(x, y, image=pomme, anchor="nw")
             x += 40
         x = 0
         y += 40
