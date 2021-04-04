@@ -10,7 +10,7 @@ HEIGH = 600
 
 #########images##################
 
-parois = tk.PhotoImage(file='contour.gif')
+parois = tk.PhotoImage(file='brique_pi1.gif')
 pomme = tk.PhotoImage(file='pomme4.gif')
 
 ############fonctions#############
@@ -35,7 +35,7 @@ def decors():
 
 snake.geometry('800x600')
 
-env_jeu = tk.Canvas(snake, width=WIDTH, heigh=HEIGH, bg="green")
+env_jeu = tk.Canvas(snake, width=WIDTH, heigh=HEIGH, bg="olive drab")
 env_jeu.place(x=0, y=0)
 
 decors()
