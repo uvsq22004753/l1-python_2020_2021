@@ -3,19 +3,14 @@ import tkinter as tk
 snake = tk.Tk()
 snake.title('jeu snake')
 
-#########VARIABLES#############
-
 WIDTH = 800
 HEIGH = 600
-
-#########images##################
 
 parois = tk.PhotoImage(file='muraille_40.gif')
 pomme = tk.PhotoImage(file='pomme_40.gif')
 tete_serpent = tk.PhotoImage(file='tete_serpent_40.gif')
 corps_serpent = tk.PhotoImage(file='corps_serpent_40.gif')
 
-############fonctions#############
 
 def decors():
     x, y = 0, 0
@@ -33,8 +28,6 @@ def decors():
         x = 0
         y += 40
     niveau.close()
-
-######code#######################
 
 
 snake.geometry('800x600')
